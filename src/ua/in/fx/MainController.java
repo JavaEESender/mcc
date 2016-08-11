@@ -5,7 +5,7 @@
  */
 package ua.in.fx;
 
-import in.ua.call.Call;
+import ua.in.call.Call;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

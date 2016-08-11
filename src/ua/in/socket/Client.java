@@ -5,7 +5,7 @@
  */
 package ua.in.socket;
 
-import in.ua.call.Call;
+import ua.in.call.Call;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
