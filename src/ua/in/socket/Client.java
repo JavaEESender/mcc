@@ -5,6 +5,7 @@
  */
 package ua.in.socket;
 
+import in.ua.call.Call;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
@@ -18,6 +19,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javax.swing.ImageIcon;
 
@@ -35,19 +44,16 @@ public class Client {
     private static DataInputStream dis;
     private static DataOutputStream dos;
 
-    private TextField phoneTextField;
-    private TextField fnameTextField;
-    private TextField lnameTextField;
+    private TableView<Call> historyTableView;
+    private ObservableList<Call> callData = FXCollections.observableArrayList();
 
     private TrayIcon trayIcon;
     private Image icon;
     private Image icon2;
     public static final String APPLICATION_NAME = "Who is calling";
 
-    public Client(TextField phoneTextField, TextField fnameTextField, TextField lnameTextField) {
-        this.phoneTextField = phoneTextField;
-        this.fnameTextField = fnameTextField;
-        this.lnameTextField = lnameTextField;
+    public Client(TableView<Call> historyTableView) {
+        this.historyTableView = historyTableView;
         setTrayIcon();
         startSocket();
     }
@@ -85,9 +91,9 @@ public class Client {
             String lname = dis.readUTF();
             trayIcon.displayMessage(APPLICATION_NAME, "телефон:  " + phone + "\n" + "имя:            " + fname + "\n" + "фамилия:    " + lname,
                     TrayIcon.MessageType.INFO);
-            phoneTextField.setText(phone);
-            fnameTextField.setText(fname);
-            lnameTextField.setText(lname);
+            Call cl = new Call(phone, fname, lname);
+            callData.add(cl);
+            historyTableView.setItems(callData);
         } catch (IOException e) {
             trayIcon.displayMessage(APPLICATION_NAME, "Disconnected!",
                     TrayIcon.MessageType.INFO);

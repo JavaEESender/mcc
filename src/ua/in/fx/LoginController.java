@@ -48,7 +48,6 @@ public class LoginController implements Initializable {
             Scene mainScene = new Scene(parent);
             mainScene.getStylesheets().add(LoginController.class.getResource("/Main.css").toExternalForm());
             mainStage.setScene(mainScene);
-            mainStage.setResizable(false);
             mainStage.setTitle("Who Is Calling");
             mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override

@@ -6,13 +6,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="195.0" prefWidth="302.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.in.fx.MainController">
+<AnchorPane id="AnchorPane" prefHeight="408.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.in.fx.MainController">
    <children>
-      <Label layoutX="37.0" layoutY="44.0" text="Телефон:" />
-      <Label layoutX="37.0" layoutY="86.0" text="Имя:" />
-      <Label layoutX="36.0" layoutY="128.0" text="Фамилия:" />
-      <TextField fx:id="txtTelephone" layoutX="101.0" layoutY="32.0" prefHeight="40.0" prefWidth="150.0" />
-      <TextField fx:id="txtFname" layoutX="101.0" layoutY="74.0" prefHeight="40.0" prefWidth="150.0" />
-      <TextField fx:id="txtLname" layoutX="101.0" layoutY="116.0" prefHeight="40.0" prefWidth="150.0" />
+      <TableView fx:id="historyTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="numberColumn" prefWidth="152.0" text="Телефон" />
+          <TableColumn fx:id="fnameColumn" prefWidth="128.0" text="Имя" />
+            <TableColumn fx:id="lnameColumn" prefWidth="155.0" text="Фамилия" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
