@@ -24,5 +24,10 @@
             <Image url="@../../../lock%20.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="imgSettings" fitHeight="30.0" fitWidth="30.0" layoutX="288.0" layoutY="8.0" onMouseClicked="#imgMouseClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../settings.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

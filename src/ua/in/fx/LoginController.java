@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ua.in.socket.Client;
@@ -60,6 +61,23 @@ public class LoginController implements Initializable {
         } else {
             lblMessage.setText("Неверное имя пользователя или пароль!");
         }
+    }
+
+    @FXML
+    private void imgMouseClick() {
+        Stage settingsStage = new Stage();
+        try {
+            Parent settingsParent = FXMLLoader.load(getClass().getResource("/ua/in/fx/Settings.fxml"));
+            Scene scene_settings = new Scene(settingsParent);
+            scene_settings.getStylesheets().add(LoginController.class.getResource("/Main.css").toExternalForm());
+            settingsStage.setScene(scene_settings);
+            settingsStage.setResizable(false);
+        } catch (IOException e) {
+            System.exit(0);
+        }
+        settingsStage.setTitle("Настройки");
+        settingsStage.getIcons().add(new Image("/settings.png"));
+        settingsStage.show();
     }
 
     /**
