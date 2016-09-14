@@ -5,7 +5,7 @@
  */
 package ua.in.socket;
 
-import ua.in.call.Call;
+import ua.in.view.ViewCall;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
@@ -19,11 +19,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javax.swing.ImageIcon;
+import ua.in.view.ViewOrder;
 import ua.obolon.ponovoy.impl.UserImpl;
+import ua.obolon.ponovoy.inerfaces.Order;
 import ua.obolon.ponovoy.inerfaces.User;
 import ua.obolon.ponovoy.res.RequestKey;
 
@@ -41,16 +46,23 @@ public class Client {
     private static ObjectInputStream ois;
     private static ObjectOutputStream oos;
 
-    private TableView<Call> historyTableView;
-    private ObservableList<Call> callData = FXCollections.observableArrayList();
+    private static TableView<ViewCall> callsTableView;
+    private static TableView<ViewOrder> ordersTableView;
+    private ObservableList<ViewCall> callData = FXCollections.observableArrayList();
+    private ObservableList<ViewOrder> orderData = FXCollections.observableArrayList();
 
     private TrayIcon trayIcon;
     private Image icon;
     private Image icon2;
     public static final String APPLICATION_NAME = "Who is calling";
 
-    public Client(TableView<Call> historyTableView) throws IOException, ClassNotFoundException {
-        this.historyTableView = historyTableView;
+    public Client() {
+
+    }
+
+    public Client(TableView<ViewCall> historyTableView, TableView<ViewOrder> orderTableView) throws IOException, ClassNotFoundException {
+        this.callsTableView = historyTableView;
+        this.ordersTableView = orderTableView;
         setTrayIcon();
         startSocket();
     }
@@ -79,7 +91,6 @@ public class Client {
 //        }
 //        return true;
 //    }
-
     public boolean clientConn() throws ClassNotFoundException {
         try {
             ois = new ObjectInputStream(s.socket().getInputStream());
@@ -90,9 +101,9 @@ public class Client {
             String lname = user.getLastName();
             trayIcon.displayMessage(APPLICATION_NAME, "телефон:  " + phone + "\n" + "имя:            " + fname + "\n" + "фамилия:    " + lname,
                     TrayIcon.MessageType.INFO);
-            Call cl = new Call(phone, fname, lname);
+            ViewCall cl = new ViewCall(phone, fname, lname);
             callData.add(cl);
-            historyTableView.setItems(callData);
+            callsTableView.setItems(callData);
         } catch (IOException e) {
             trayIcon.displayMessage(APPLICATION_NAME, "Disconnected!",
                     TrayIcon.MessageType.INFO);
@@ -102,9 +113,41 @@ public class Client {
         return true;
     }
 
+    public boolean getUserDetail(String telephone) {
+        try {
+            SocketChannel reqChanel = SocketChannel.open();
+            reqChanel.connect(new InetSocketAddress("10.0.74.100", 7878));
+            ObjectOutputStream reqOos = new ObjectOutputStream(reqChanel.socket().getOutputStream());
+            reqOos.writeObject(RequestKey.GET_ORDERS);
+            reqOos.writeObject(username);
+            reqOos.writeObject(pass);
+            reqOos.writeObject(telephone);
+            ObjectInputStream reqOis = new ObjectInputStream(reqChanel.socket().getInputStream());
+            List<Order> orders = (List<Order>) reqOis.readObject();
+            reqChanel.close();
+
+            if(!orders.isEmpty()){
+            orders.forEach((Order o) -> {
+                ViewOrder tmp = new ViewOrder(String.valueOf(o.getId()), o.getOrderDate().toString(), String.valueOf(o.getTotal()), o.getStatus());
+                this.orderData.add(tmp);
+                ordersTableView.setItems(orderData);
+            });}else{
+                orderData.clear();
+                ordersTableView.setItems(orderData);
+            }
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
     private void startSocket() throws IOException, ClassNotFoundException {
         while (true) {
-            if (getSignup() ) {
+            if (getSignup()) {
                 while (clientConn()) {
                 }
             }
@@ -116,9 +159,7 @@ public class Client {
             s = SocketChannel.open();
             s.connect(new InetSocketAddress("10.0.74.100", 7878));
             oos = new ObjectOutputStream(s.socket().getOutputStream());
-            
-            
-            
+
             oos.writeObject(RequestKey.NEW_LOGIN);
             oos.writeObject(username);
             oos.writeObject(pass);

@@ -6,13 +6,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="408.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.in.fx.MainController">
+<AnchorPane id="AnchorPane" prefHeight="409.0" prefWidth="934.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.in.fx.MainController">
    <children>
-      <TableView fx:id="historyTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="historyTableView" prefHeight="409.0" prefWidth="435.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0">
         <columns>
           <TableColumn fx:id="numberColumn" prefWidth="152.0" text="Телефон" />
           <TableColumn fx:id="fnameColumn" prefWidth="128.0" text="Имя" />
             <TableColumn fx:id="lnameColumn" prefWidth="155.0" text="Фамилия" />
+        </columns>
+      </TableView>
+      <TableView fx:id="orderTableView" layoutX="434.0" prefHeight="409.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="434.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="orderID" prefWidth="138.0" text="Заказ" />
+          <TableColumn fx:id="orderDate" prefWidth="127.0" text="Дата" />
+            <TableColumn fx:id="orderTotal" prefWidth="124.0" text="Сумма" />
+            <TableColumn fx:id="orderStatus" prefWidth="112.0" text="Статус" />
         </columns>
       </TableView>
    </children>

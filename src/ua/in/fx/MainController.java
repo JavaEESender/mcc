@@ -6,17 +6,23 @@
 package ua.in.fx;
 
 import java.io.IOException;
-import ua.in.call.Call;
+import ua.in.view.ViewCall;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ua.in.socket.Client;
+import ua.in.view.ViewOrder;
+import ua.obolon.ponovoy.inerfaces.Order;
 
 /**
  * FXML Controller class
@@ -26,27 +32,52 @@ import ua.in.socket.Client;
 public class MainController implements Initializable {
 
     @FXML
-    private TableView<Call> historyTableView;
+    private TableView<ViewCall> historyTableView;
     @FXML
-    private TableColumn<Call, String> numberColumn;
+    private TableColumn<ViewCall, String> numberColumn;
     @FXML
-    private TableColumn<Call, String> fnameColumn;
+    private TableColumn<ViewCall, String> fnameColumn;
     @FXML
-    private TableColumn<Call, String> lnameColumn;
+    private TableColumn<ViewCall, String> lnameColumn;
+    @FXML
+    private TableView<ViewOrder> orderTableView;
+    @FXML
+    private TableColumn<ViewOrder, String> orderID;
+    @FXML
+    private TableColumn<ViewOrder, String> orderDate;
+    @FXML
+    private TableColumn<ViewOrder, String> orderTotal;
+    @FXML
+    private TableColumn<ViewOrder, String> orderStatus;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        numberColumn.setCellValueFactory(new PropertyValueFactory<Call, String>("number"));
-        fnameColumn.setCellValueFactory(new PropertyValueFactory<Call, String>("fname"));
-        lnameColumn.setCellValueFactory(new PropertyValueFactory<Call, String>("lname"));
+        numberColumn.setCellValueFactory(new PropertyValueFactory<ViewCall, String>("number"));
+        fnameColumn.setCellValueFactory(new PropertyValueFactory<ViewCall, String>("fname"));
+        lnameColumn.setCellValueFactory(new PropertyValueFactory<ViewCall, String>("lname"));
+        orderID.setCellValueFactory(new PropertyValueFactory<ViewOrder, String>("orderId"));
+        orderDate.setCellValueFactory(new PropertyValueFactory<ViewOrder, String>("orderDate"));
+        orderTotal.setCellValueFactory(new PropertyValueFactory<ViewOrder, String>("orderTotal"));
+        orderStatus.setCellValueFactory(new PropertyValueFactory<ViewOrder, String>("orderStatus"));
+
+        historyTableView.setRowFactory(tv -> {
+            TableRow<ViewCall> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                ViewCall rowData = row.getItem();
+                Client client = new Client();
+                client.getUserDetail(rowData.getNumber());
+            });
+            return row;
+        });
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Client client = new Client(historyTableView);
+                    Client client = new Client(historyTableView, orderTableView);
                 } catch (IOException ex) {
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {

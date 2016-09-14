@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.in.call;
+package ua.in.view;
 
 /**
  *
  * @author Alexander
  */
-public class Call {
+public class ViewCall {
 
     private String number;
     private String fname;
     private String lname;
 
-    public Call(String number, String fname, String lname) {
+    public ViewCall(String number, String fname, String lname) {
         this.number = number;
         this.fname = fname;
         this.lname = lname;
     }
 
-    public Call() {
+    public ViewCall() {
     }
 
     public String getNumber() {
