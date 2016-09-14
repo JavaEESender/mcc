@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javax.swing.ImageIcon;
 import ua.obolon.ponovoy.impl.UserImpl;
 import ua.obolon.ponovoy.inerfaces.User;
+import ua.obolon.ponovoy.res.RequestKey;
 
 /**
  *
@@ -115,7 +116,10 @@ public class Client {
             s = SocketChannel.open();
             s.connect(new InetSocketAddress("10.0.74.100", 7878));
             oos = new ObjectOutputStream(s.socket().getOutputStream());
-            oos.writeObject("newLogin");
+            
+            
+            
+            oos.writeObject(RequestKey.NEW_LOGIN);
             oos.writeObject(username);
             oos.writeObject(pass);
             ois = new ObjectInputStream(s.socket().getInputStream());
