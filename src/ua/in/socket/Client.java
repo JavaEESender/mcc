@@ -14,21 +14,17 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.channels.SocketChannel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javax.swing.ImageIcon;
+import ua.obolon.ponovoy.impl.UserImpl;
+import ua.obolon.ponovoy.inerfaces.User;
 
 /**
  *
@@ -40,9 +36,9 @@ public class Client {
     private static String pass;
     private static String ip;
     private static int port;
-    private static Socket s;
-    private static DataInputStream dis;
-    private static DataOutputStream dos;
+    private static SocketChannel s;
+    private static ObjectInputStream ois;
+    private static ObjectOutputStream oos;
 
     private TableView<Call> historyTableView;
     private ObservableList<Call> callData = FXCollections.observableArrayList();
@@ -52,7 +48,7 @@ public class Client {
     private Image icon2;
     public static final String APPLICATION_NAME = "Who is calling";
 
-    public Client(TableView<Call> historyTableView) {
+    public Client(TableView<Call> historyTableView) throws IOException, ClassNotFoundException {
         this.historyTableView = historyTableView;
         setTrayIcon();
         startSocket();
@@ -68,27 +64,29 @@ public class Client {
         Client.port = port;
     }
 
-    public boolean socketINI() {
-        try {
-            dis = new DataInputStream(s.getInputStream());
-            dos = new DataOutputStream(s.getOutputStream());
-            dos.writeUTF("connClient");
-            dos.writeUTF(pass);
-            trayIcon.displayMessage(APPLICATION_NAME, "Connected.",
-                    TrayIcon.MessageType.INFO);
-            trayIcon.setImage(icon);
-        } catch (IOException e) {
-            trayIcon.setImage(icon2);
-            return false;
-        }
-        return true;
-    }
+//    public boolean socketINI() {
+//        try {
+//            oos = new ObjectOutputStream(s.socket().getOutputStream());
+//            oos.writeObject("connClient");
+//            oos.writeObject(pass);
+//            trayIcon.displayMessage(APPLICATION_NAME, "Connected.",
+//                    TrayIcon.MessageType.INFO);
+//            trayIcon.setImage(icon);
+//        } catch (IOException e) {
+//            trayIcon.setImage(icon2);
+//            return false;
+//        }
+//        return true;
+//    }
 
-    public boolean clientConn() {
+    public boolean clientConn() throws ClassNotFoundException {
         try {
-            String phone = dis.readUTF();
-            String fname = dis.readUTF();
-            String lname = dis.readUTF();
+            ois = new ObjectInputStream(s.socket().getInputStream());
+            User user = new UserImpl();
+            user = (User) ois.readObject();
+            String phone = user.getTelephone();
+            String fname = user.getFirstName();
+            String lname = user.getLastName();
             trayIcon.displayMessage(APPLICATION_NAME, "телефон:  " + phone + "\n" + "имя:            " + fname + "\n" + "фамилия:    " + lname,
                     TrayIcon.MessageType.INFO);
             Call cl = new Call(phone, fname, lname);
@@ -103,25 +101,26 @@ public class Client {
         return true;
     }
 
-    private void startSocket() {
+    private void startSocket() throws IOException, ClassNotFoundException {
         while (true) {
-            if (getSignup() && socketINI()) {
+            if (getSignup() ) {
                 while (clientConn()) {
                 }
             }
         }
     }
 
-    public boolean getSignup() {
+    public boolean getSignup() throws IOException, ClassNotFoundException {
         try {
-            s = new Socket();
-            s.connect(new InetSocketAddress(ip, port), 5000);
-            dis = new DataInputStream(s.getInputStream());
-            dos = new DataOutputStream(s.getOutputStream());
-            dos.writeUTF("newLogin");
-            dos.writeUTF(username);
-            dos.writeUTF(pass);
-            return dis.readUTF().equals("true");
+            s = SocketChannel.open();
+            s.connect(new InetSocketAddress("10.0.74.100", 7878));
+            oos = new ObjectOutputStream(s.socket().getOutputStream());
+            oos.writeObject("newLogin");
+            oos.writeObject(username);
+            oos.writeObject(pass);
+            ois = new ObjectInputStream(s.socket().getInputStream());
+            String ok = (String) ois.readObject();
+            return ok.equals("true");
         } catch (IOException e) {
             return false;
         }

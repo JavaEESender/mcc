@@ -5,14 +5,16 @@
  */
 package ua.in.fx;
 
+import java.io.IOException;
 import ua.in.call.Call;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ua.in.socket.Client;
 
@@ -43,7 +45,13 @@ public class MainController implements Initializable {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Client client = new Client(historyTableView);
+                try {
+                    Client client = new Client(historyTableView);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }).start();
     }

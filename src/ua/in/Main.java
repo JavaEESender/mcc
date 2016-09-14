@@ -22,7 +22,7 @@ import ua.in.socket.Client;
  */
 public class Main extends Application {
 
-    private static final String ip = "10.0.74.150";
+    private static final String ip = "10.0.74.100";
     private static final int port = 7878;
 
     public static void main(String[] args) {

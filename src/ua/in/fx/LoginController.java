@@ -20,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ua.in.socket.Client;
@@ -40,7 +39,7 @@ public class LoginController implements Initializable {
     private PasswordField txtPassword;
 
     @FXML
-    private void btnLoginAction(ActionEvent event) throws IOException {
+    private void btnLoginAction(ActionEvent event) throws IOException, ClassNotFoundException {
         Client client = new Client(txtUsername.getText(), txtPassword.getText());
         if (client.getSignup()) {
             ((Node) (event.getSource())).getScene().getWindow().hide();
