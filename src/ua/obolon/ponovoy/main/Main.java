@@ -35,14 +35,14 @@ public class Main extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/ua/obolon/ponovoy/fx/Login.fxml"));
             Scene scene_login = new Scene(root);
-            scene_login.getStylesheets().add(LoginController.class.getResource("/Login.css").toExternalForm());
+            scene_login.getStylesheets().add(LoginController.class.getResource("/ua/obolon/ponovoy/res/Login.css").toExternalForm());
             primaryStage.setScene(scene_login);
             primaryStage.setResizable(false);
         } catch (IOException e) {
             System.exit(0);
         }
         primaryStage.setTitle("Login");
-        primaryStage.getIcons().add(new Image("/ofline.png"));
+        primaryStage.getIcons().add(new Image("/ua/obolon/ponovoy/res/ofline.png"));
         primaryStage.show();
 
     }

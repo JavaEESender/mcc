@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
             Parent parent = FXMLLoader.load(getClass().getResource("/ua/obolon/ponovoy/fx/Main.fxml"));
             Stage mainStage = new Stage();
             Scene mainScene = new Scene(parent);
-            mainScene.getStylesheets().add(LoginController.class.getResource("/Main.css").toExternalForm());
+            mainScene.getStylesheets().add(LoginController.class.getResource("/ua/obolon/ponovoy/res/Main.css").toExternalForm());
             mainStage.setScene(mainScene);
             mainStage.setTitle("Who Is Calling");
             mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -56,7 +56,7 @@ public class LoginController implements Initializable {
                    System.exit(0);
                 }
             });
-            mainStage.getIcons().add(new Image("/online.png"));
+            mainStage.getIcons().add(new Image("/ua/obolon/ponovoy/res/online.png"));
             mainStage.show();
         } else {
             lblMessage.setText("Неверное имя пользователя или пароль!");
@@ -67,16 +67,16 @@ public class LoginController implements Initializable {
     private void imgMouseClick() {
         Stage settingsStage = new Stage();
         try {
-            Parent settingsParent = FXMLLoader.load(getClass().getResource("/ua/in/fx/Settings.fxml"));
+            Parent settingsParent = FXMLLoader.load(getClass().getResource("/ua/obolon/ponovoy/res/Settings.fxml"));
             Scene scene_settings = new Scene(settingsParent);
-            scene_settings.getStylesheets().add(LoginController.class.getResource("/Main.css").toExternalForm());
+            scene_settings.getStylesheets().add(LoginController.class.getResource("/ua/obolon/ponovoy/res/Main.css").toExternalForm());
             settingsStage.setScene(scene_settings);
             settingsStage.setResizable(false);
         } catch (IOException e) {
             System.exit(0);
         }
         settingsStage.setTitle("Настройки");
-        settingsStage.getIcons().add(new Image("/settings.png"));
+        settingsStage.getIcons().add(new Image("/ua/obolon/ponovoy/res/settings.png"));
         settingsStage.show();
     }
 

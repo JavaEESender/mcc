@@ -6,7 +6,7 @@
 package ua.obolon.ponovoy.impl;
 
 import java.io.Serializable;
-import ua.obolon.ponovoy.inerfaces.User;
+import ua.obolon.ponovoy.interfaces.User;
 
 /**
  *

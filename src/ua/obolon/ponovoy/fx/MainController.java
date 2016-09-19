@@ -5,12 +5,8 @@
  */
 package ua.obolon.ponovoy.fx;
 
-import java.io.IOException;
-import ua.obolon.ponovoy.view.ViewCall;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -19,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ua.obolon.ponovoy.socket.Client;
 import ua.obolon.ponovoy.view.ViewOrder;
+import ua.obolon.ponovoy.view.ViewCall;
 
 /**
  * FXML Controller class

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import ua.obolon.ponovoy.inerfaces.Order;
+import ua.obolon.ponovoy.interfaces.Order;
 import ua.obolon.ponovoy.res.ProductArt;
 
 /**

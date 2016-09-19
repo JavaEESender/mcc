@@ -5,7 +5,6 @@
  */
 package ua.obolon.ponovoy.socket;
 
-import ua.obolon.ponovoy.view.ViewCall;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
@@ -28,9 +27,10 @@ import javafx.scene.control.TableView;
 import javax.swing.ImageIcon;
 import ua.obolon.ponovoy.view.ViewOrder;
 import ua.obolon.ponovoy.impl.UserImpl;
-import ua.obolon.ponovoy.inerfaces.Order;
-import ua.obolon.ponovoy.inerfaces.User;
+import ua.obolon.ponovoy.interfaces.Order;
+import ua.obolon.ponovoy.interfaces.User;
 import ua.obolon.ponovoy.res.RequestKey;
+import ua.obolon.ponovoy.view.ViewCall;
 
 /**
  *
@@ -150,6 +150,9 @@ public class Client {
     private void startSocket() {
         while (true) {
             if (getSignup()) {
+                trayIcon.displayMessage(APPLICATION_NAME, "Connected!",
+                        TrayIcon.MessageType.INFO);
+                trayIcon.setImage(icon);
                 while (clientConn()) {
                 }
             }
@@ -182,25 +185,25 @@ public class Client {
         }
 
         PopupMenu trayMenu = new PopupMenu();
-        MenuItem item = new MenuItem("Exit");
-        item.addActionListener(new ActionListener() {
+        MenuItem item_open = new MenuItem("Open");
+        item_open.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        MenuItem item_exit = new MenuItem("Exit");
+        item_exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        MenuItem item2 = new MenuItem("Open");
-        item2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        trayMenu.add(item_open);
+        trayMenu.add(item_exit);
 
-            }
-        });
-        trayMenu.add(item2);
-        trayMenu.add(item);
-
-        icon = new ImageIcon(getClass().getResource("/online.png")).getImage();
-        icon2 = new ImageIcon(getClass().getResource("/ofline.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/ua/obolon/ponovoy/res/online.png")).getImage();
+        icon2 = new ImageIcon(getClass().getResource("/ua/obolon/ponovoy/res/ofline.png")).getImage();
         trayIcon = new TrayIcon(icon, APPLICATION_NAME, trayMenu);
         trayIcon.setImageAutoSize(true);
 

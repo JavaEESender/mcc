@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="216.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.in.fx.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="216.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.obolon.ponovoy.fx.LoginController">
    <children>
       <TextField fx:id="txtUsername" layoutX="60.0" layoutY="26.0" onAction="#btnLoginAction" prefHeight="40.0" prefWidth="220.0" promptText="Пользователь" />
       <PasswordField fx:id="txtPassword" layoutX="60.0" layoutY="68.0" onAction="#btnLoginAction" prefHeight="40.0" prefWidth="220.0" promptText="Пароль" />
@@ -16,17 +16,17 @@
       <Label fx:id="lblMessage" layoutX="49.0" layoutY="118.0" prefHeight="20.0" prefWidth="250.0" textFill="#e42413" />
       <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="19.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../user.png" />
+            <Image url="@../res/user.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="22.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../lock%20.png" />
+            <Image url="@../res/settings.png" />
          </image>
       </ImageView>
       <ImageView fx:id="imgSettings" fitHeight="30.0" fitWidth="30.0" layoutX="288.0" layoutY="8.0" onMouseClicked="#imgMouseClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../settings.png" />
+            <Image url="@../res/settings.png" />
          </image>
       </ImageView>
    </children>
