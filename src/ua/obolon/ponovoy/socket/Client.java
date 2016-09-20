@@ -18,7 +18,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.nio.channels.SocketChannel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -77,35 +81,46 @@ public class Client {
         Client.port = port;
     }
 
-//    public boolean socketINI() {
-//        try {
-//            oos = new ObjectOutputStream(s.socket().getOutputStream());
-//            oos.writeObject("connClient");
-//            oos.writeObject(pass);
-//            trayIcon.displayMessage(APPLICATION_NAME, "Connected.",
-//                    TrayIcon.MessageType.INFO);
-//            trayIcon.setImage(icon);
-//        } catch (IOException e) {
-//            trayIcon.setImage(icon2);
-//            return false;
-//        }
-//        return true;
-//    }
     public boolean clientConn() {
         try {
             ois = new ObjectInputStream(s.socket().getInputStream());
-            User user = new UserImpl();
-            user = (User) ois.readObject();
-            String phone = user.getTelephone();
-            String fname = user.getFirstName();
-            String lname = user.getLastName();
+            RequestKey key = (RequestKey) ois.readObject();
+            switch (key) {
+                case SET_NEW_CALL: {
+                    User user = new UserImpl();
+                    user = (User) ois.readObject();
+                    String phone = user.getTelephone();
+                    String fname = user.getFirstName();
+                    String lname = user.getLastName();
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    df.setTimeZone(TimeZone.getDefault());
+                    String callDate = df.format(user.getCallDate());
 
-            trayIcon.displayMessage(APPLICATION_NAME, "телефон:  " + phone + "\n" + "имя:            " + fname + "\n" + "фамилия:    " + lname,
-                    TrayIcon.MessageType.INFO);
-            ViewCall cl = new ViewCall(phone, fname, lname);
-            callData.add(cl);
-            callsTableView.setItems(callData);
-            return true;
+                    trayIcon.displayMessage(APPLICATION_NAME, "телефон:  " + phone + "\n" + "имя:            " + fname + "\n" + "фамилия:    " + lname,
+                            TrayIcon.MessageType.INFO);
+                    ViewCall cl = new ViewCall(phone, fname, lname, callDate);
+                    callData.add(cl);
+                    callsTableView.setItems(callData);
+                    return true;
+                }
+                case SET_LIST_CALLS: {
+                    List<User> user = new ArrayList<>();
+                    user = (List<User>) ois.readObject();
+
+                    user.forEach((u) -> {
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        df.setTimeZone(TimeZone.getDefault());
+                        ViewCall cl = new ViewCall(u.getTelephone(), u.getFirstName(), u.getLastName(), df.format(u.getCallDate()));
+                        callData.add(cl);
+                    });
+                    callsTableView.setItems(callData);
+                    return true;
+                }
+                default: {
+                    return false;
+                }
+            }
+
         } catch (IOException e) {
             trayIcon.displayMessage(APPLICATION_NAME, "Disconnected!",
                     TrayIcon.MessageType.INFO);

@@ -33,6 +33,8 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<ViewCall, String> lnameColumn;
     @FXML
+    private TableColumn<ViewCall, String> callDateColumn;
+    @FXML
     private TableView<ViewOrder> orderTableView;
     @FXML
     private TableColumn<ViewOrder, String> orderID;
@@ -51,6 +53,7 @@ public class MainController implements Initializable {
         numberColumn.setCellValueFactory(new PropertyValueFactory<ViewCall, String>("number"));
         fnameColumn.setCellValueFactory(new PropertyValueFactory<ViewCall, String>("fname"));
         lnameColumn.setCellValueFactory(new PropertyValueFactory<ViewCall, String>("lname"));
+        callDateColumn.setCellValueFactory(new PropertyValueFactory<ViewCall, String>("callDate"));
         orderID.setCellValueFactory(new PropertyValueFactory<ViewOrder, String>("orderId"));
         orderDate.setCellValueFactory(new PropertyValueFactory<ViewOrder, String>("orderDate"));
         orderTotal.setCellValueFactory(new PropertyValueFactory<ViewOrder, String>("orderTotal"));
