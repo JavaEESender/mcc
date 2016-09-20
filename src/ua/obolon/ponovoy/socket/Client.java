@@ -132,7 +132,7 @@ public class Client {
 
             if (!orders.isEmpty()) {
                 orders.forEach((Order o) -> {
-                    ViewOrder tmp = new ViewOrder(String.valueOf(o.getId()), o.getOrderDate().toString(), String.valueOf(o.getTotal()), o.getStatus());
+                    ViewOrder tmp = new ViewOrder(o.getOrderID(), o.getOrderDate().toString(), String.valueOf(o.getTotal()), o.getStatus());
                     this.orderData.add(tmp);
                     ordersTableView.setItems(orderData);
                 });

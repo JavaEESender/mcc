@@ -16,9 +16,10 @@ import ua.obolon.ponovoy.res.ProductArt;
  *
  * @author Alexander
  */
-public class OrderImpl implements Order, Serializable{
-    
+public class OrderImpl implements Order, Serializable {
+
     private long id;
+    private String orderID;
     private List<Map<ProductArt, String>> products;
     private Date orderDate;
     private String status;
@@ -32,6 +33,17 @@ public class OrderImpl implements Order, Serializable{
     private String telephone;
 
     @Override
+    public String getOrderID() {
+        return orderID;
+    }
+
+    @Override
+    public Order setOrderID(String orderID) {
+        this.orderID = orderID;
+        return this;
+    }
+
+    @Override
     public List<Map<ProductArt, String>> getProducts() {
         return products;
     }
@@ -41,8 +53,7 @@ public class OrderImpl implements Order, Serializable{
         this.products = products;
         return this;
     }
-    
-    
+
     @Override
     public Date getOrderDate() {
         return orderDate;
@@ -101,9 +112,6 @@ public class OrderImpl implements Order, Serializable{
         this.id = id;
         return this;
     }
-
-    
-
 
     @Override
     public Order setOrderDate(Date date) {
@@ -177,9 +185,6 @@ public class OrderImpl implements Order, Serializable{
         this.telephone = telephone;
         return this;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {
@@ -205,8 +210,4 @@ public class OrderImpl implements Order, Serializable{
         }
         return true;
     }
-    
-    
-    
-    
 }

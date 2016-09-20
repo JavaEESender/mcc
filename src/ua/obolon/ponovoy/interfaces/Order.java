@@ -22,6 +22,8 @@ public interface Order {
      */
     long getId();
     Order setId(long id);
+    String getOrderID();
+    Order setOrderID(String orderID);
     String getTelephone();
     Order setTelephone(String telephone);
     List<Map<ProductArt,String>> getProducts();
