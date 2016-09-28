@@ -68,6 +68,7 @@ public class Client {
         this.callsTableView = historyTableView;
         this.ordersTableView = orderTableView;
         setTrayIcon();
+        getCalls(86400*1000);
         startSocket();
     }
 
@@ -159,6 +160,38 @@ public class Client {
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+
+    public List<User> getCalls(long time) {
+        try {
+            SocketChannel reqChanel = SocketChannel.open();
+            reqChanel.connect(new InetSocketAddress(ip, port));
+            ObjectOutputStream reqOos = new ObjectOutputStream(reqChanel.socket().getOutputStream());
+            reqOos.writeObject(RequestKey.GET_CALLS);
+            reqOos.writeObject(username);
+            reqOos.writeObject(pass);
+            reqOos.writeObject(time);
+            ObjectInputStream reqOis = new ObjectInputStream(reqChanel.socket().getInputStream());
+            List<User> list = (List<User>) reqOis.readObject();
+            reqChanel.close();
+
+            if (!list.isEmpty()) {
+                list.forEach((c) -> {
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    df.setTimeZone(TimeZone.getDefault());
+                    ViewCall tmp = new ViewCall(c.getTelephone(), c.getFirstName(), c.getLastName(), df.format(c.getCallDate()));
+                    this.callData.add(tmp);
+                    callsTableView.setItems(callData);
+                });
+            } else {
+                callData.clear();
+                callsTableView.setItems(callData);
+            }
+            return null;
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
