@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
     private void imgMouseClick() {
         Stage settingsStage = new Stage();
         try {
-            Parent settingsParent = FXMLLoader.load(getClass().getResource("/ua/obolon/ponovoy/res/Settings.fxml"));
+            Parent settingsParent = FXMLLoader.load(getClass().getResource("/ua/obolon/ponovoy/fx/Settings.fxml"));
             Scene scene_settings = new Scene(settingsParent);
             scene_settings.getStylesheets().add(LoginController.class.getResource("/ua/obolon/ponovoy/res/Main.css").toExternalForm());
             settingsStage.setScene(scene_settings);
