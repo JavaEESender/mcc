@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.obolon.ponovoy.impl;
+package ua.magento.caller.impl;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import ua.obolon.ponovoy.interfaces.Order;
-import ua.obolon.ponovoy.res.ProductArt;
+import ua.magento.caller.interfaces.Order;
+import ua.magento.caller.res.ProductArt;
 
 /**
  *

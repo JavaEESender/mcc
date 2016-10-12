@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.obolon.ponovoy.fx;
+package ua.magento.caller.fx;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,7 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import ua.obolon.ponovoy.socket.Client;
+import ua.magento.caller.socket.Client;
 
 /**
  * FXML Controller class
@@ -44,10 +44,10 @@ public class LoginController implements Initializable {
         Client client = new Client(txtUsername.getText(), txtPassword.getText());
         if (client.getSignup()) {
             ((Node) (event.getSource())).getScene().getWindow().hide();
-            Parent parent = FXMLLoader.load(getClass().getResource("/ua/obolon/ponovoy/fx/Main.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/ua/magento/caller/fx/Main.fxml"));
             Stage mainStage = new Stage();
             Scene mainScene = new Scene(parent);
-            mainScene.getStylesheets().add(LoginController.class.getResource("/ua/obolon/ponovoy/res/Main.css").toExternalForm());
+            mainScene.getStylesheets().add(LoginController.class.getResource("/ua/magento/caller/res/Main.css").toExternalForm());
             mainStage.setScene(mainScene);
             mainStage.setTitle("Who Is Calling");
             mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -56,7 +56,7 @@ public class LoginController implements Initializable {
                    System.exit(0);
                 }
             });
-            mainStage.getIcons().add(new Image("/ua/obolon/ponovoy/res/online.png"));
+            mainStage.getIcons().add(new Image("/ua/magento/caller/res/online.png"));
             mainStage.show();
         } else {
             lblMessage.setText("Неверное имя пользователя или пароль!");
@@ -67,16 +67,16 @@ public class LoginController implements Initializable {
     private void imgMouseClick() {
         Stage settingsStage = new Stage();
         try {
-            Parent settingsParent = FXMLLoader.load(getClass().getResource("/ua/obolon/ponovoy/fx/Settings.fxml"));
+            Parent settingsParent = FXMLLoader.load(getClass().getResource("/ua/magento/caller/fx/Settings.fxml"));
             Scene scene_settings = new Scene(settingsParent);
-            scene_settings.getStylesheets().add(LoginController.class.getResource("/ua/obolon/ponovoy/res/Main.css").toExternalForm());
+            scene_settings.getStylesheets().add(LoginController.class.getResource("/ua/magento/caller/res/Main.css").toExternalForm());
             settingsStage.setScene(scene_settings);
             settingsStage.setResizable(false);
         } catch (IOException e) {
             System.exit(0);
         }
         settingsStage.setTitle("Настройки");
-        settingsStage.getIcons().add(new Image("/ua/obolon/ponovoy/res/settings.png"));
+        settingsStage.getIcons().add(new Image("/ua/magento/caller/res/settings.png"));
         settingsStage.show();
     }
 

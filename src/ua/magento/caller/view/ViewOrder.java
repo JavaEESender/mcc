@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.obolon.ponovoy.view;
+package ua.magento.caller.view;
 
 import java.util.Objects;
 

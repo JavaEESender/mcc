@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.obolon.ponovoy.fx;
+package ua.magento.caller.fx;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,9 +13,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import ua.obolon.ponovoy.socket.Client;
-import ua.obolon.ponovoy.view.ViewOrder;
-import ua.obolon.ponovoy.view.ViewCall;
+import ua.magento.caller.socket.Client;
+import ua.magento.caller.view.ViewOrder;
+import ua.magento.caller.view.ViewCall;
 
 /**
  * FXML Controller class

@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="216.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.obolon.ponovoy.fx.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="216.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.magento.caller.fx.LoginController">
    <children>
       <TextField fx:id="txtUsername" layoutX="60.0" layoutY="26.0" onAction="#btnLoginAction" prefHeight="40.0" prefWidth="220.0" promptText="Пользователь" />
       <PasswordField fx:id="txtPassword" layoutX="60.0" layoutY="68.0" onAction="#btnLoginAction" prefHeight="40.0" prefWidth="220.0" promptText="Пароль" />

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.obolon.ponovoy.socket;
+package ua.magento.caller.socket;
 
 import java.awt.AWTException;
 import java.awt.Image;
@@ -29,12 +29,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javax.swing.ImageIcon;
-import ua.obolon.ponovoy.view.ViewOrder;
-import ua.obolon.ponovoy.impl.UserImpl;
-import ua.obolon.ponovoy.interfaces.Order;
-import ua.obolon.ponovoy.interfaces.User;
-import ua.obolon.ponovoy.res.RequestKey;
-import ua.obolon.ponovoy.view.ViewCall;
+import ua.magento.caller.view.ViewOrder;
+import ua.magento.caller.impl.UserImpl;
+import ua.magento.caller.interfaces.Order;
+import ua.magento.caller.interfaces.User;
+import ua.magento.caller.res.RequestKey;
+import ua.magento.caller.view.ViewCall;
 
 /**
  *
@@ -250,8 +250,8 @@ public class Client {
         trayMenu.add(item_open);
         trayMenu.add(item_exit);
 
-        icon = new ImageIcon(getClass().getResource("/ua/obolon/ponovoy/res/online.png")).getImage();
-        icon2 = new ImageIcon(getClass().getResource("/ua/obolon/ponovoy/res/ofline.png")).getImage();
+        icon = new ImageIcon(getClass().getResource("/ua/magento/caller/res/online.png")).getImage();
+        icon2 = new ImageIcon(getClass().getResource("/ua/magento/caller/res/ofline.png")).getImage();
         trayIcon = new TrayIcon(icon, APPLICATION_NAME, trayMenu);
         trayIcon.setImageAutoSize(true);
 

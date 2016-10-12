@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ua.obolon.ponovoy.impl;
+package ua.magento.caller.impl;
 
 import java.io.Serializable;
-import ua.obolon.ponovoy.interfaces.User;
+import ua.magento.caller.interfaces.User;
 
 /**
  *

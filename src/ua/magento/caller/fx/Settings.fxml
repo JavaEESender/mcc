@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="349.0" prefWidth="333.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ua.obolon.ponovoy.fx.SettingsController">
+<AnchorPane id="AnchorPane" prefHeight="349.0" prefWidth="333.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ua.magento.caller.fx.SettingsController">
    <children>
       <Label layoutX="32.0" layoutY="78.0" text="server:" />
       <Label layoutX="36.0" layoutY="109.0" text="port" />
